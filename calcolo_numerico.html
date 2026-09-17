@@ -222,6 +222,8 @@ footer{padding:3em 2em; text-align:center; color:var(--ink-soft); font-family:'I
   <a href="#bisezione"><span class="n">06</span>Zeri di funzione</a>
   <a href="#integrazione"><span class="n">07</span>Integrazione: rettangoli</a>
   <a href="#montecarlo"><span class="n">08</span>Metodo Monte Carlo</a>
+  <a href="#quiz"><span class="n">09</span>Verifica</a>
+  <a href="#risorse"><span class="n">10</span>Per casa</a>
 </nav>
 
 <header class="hero">
@@ -500,6 +502,34 @@ footer{padding:3em 2em; text-align:center; color:var(--ink-soft); font-family:'I
   </div>
 
   <div class="teacher-note"><strong>Confronto con i rettangoli</strong>Qui non serve conoscere l'andamento della funzione punto per punto come nei rettangoli: basta poter valutare f in punti casuali. È per questo che Monte Carlo funziona bene anche in dimensioni alte, dove i metodi "a griglia" diventano troppo costosi — un'anticipazione utile se in futuro incontrerai il machine learning.</div>
+</section>
+
+<section id="quiz" class="alt"><div class="inner">
+  <div class="kicker"><span class="num">9</span>Verifica rapida</div>
+  <h2>Hai capito i concetti chiave?</h2>
+  <div id="quizWrap"></div>
+</div></section>
+
+<section id="risorse">
+  <div class="kicker"><span class="num">10</span>Per la prossima lezione</div>
+  <h2>Notebook Colab e attività #ProvaOra dal libro</h2>
+
+  <div class="teacher-note"><strong>Nota sui riferimenti al libro</strong>Solo alcuni dei notebook qui sotto corrispondono alle pagine 124–133 di questa lezione (li riconosci dal badge <span class="badge onbook" style="margin:0">Sul libro</span>). Gli altri sono materiale extra: se in uno di essi trovi citato un numero di pagina di un "libro di testo", non fa riferimento a queste pagine — chiedi pure all'insegnante se vuoi saperne di più sulla fonte.</div>
+
+  <p>I sei notebook usati per costruire le simulazioni di oggi sono pronti per essere eseguiti ed estesi:</p>
+  <div class="resource"><span class="tag">NOTEBOOK 1 · GIÀ SVOLTO · SUL LIBRO pp. 128-129</span><p style="margin-top:.4em"><code>01_MetodoBisezione_Soluzione.ipynb</code> — implementazione completa del metodo di bisezione (funzioni <code>cercaZero</code> ed <code>esisteZero</code>) con grafico della funzione via Matplotlib.</p></div>
+  <div class="resource"><span class="tag">NOTEBOOK 2 · DA COMPLETARE · SUL LIBRO p. 132</span><p style="margin-top:.4em"><code>02_MetodoDiNewton.ipynb</code> — la funzione <code>root_finding</code> usa <code>eval()</code> per calcolare f e f' a partire da stringhe: prova a riflettere su vantaggi (flessibilità) e rischi (sicurezza) di questo approccio rispetto a passare funzioni Python vere e proprie come in <code>root_finding2.py</code>.</p></div>
+  <div class="resource"><span class="tag">NOTEBOOK 3 · GIÀ SVOLTO · MATERIALE EXTRA</span><p style="margin-top:.4em"><code>03_IntegraleRettangoli_Soluzione.ipynb</code> — metodo dei rettangoli con confronto diretto rispetto al calcolo simbolico dell'integrale con SymPy.</p></div>
+  <div class="resource"><span class="tag">NOTEBOOK 4 · GIÀ SVOLTO · MATERIALE EXTRA</span><p style="margin-top:.4em"><code>RadiceQuadrata.ipynb</code> — metodo babilonese, con esercizio guidato su convergenza e propagazione dell'errore.</p></div>
+  <div class="resource"><span class="tag">NOTEBOOK 5 · GIÀ SVOLTO · MATERIALE EXTRA (π citato a p. 126)</span><p style="margin-top:.4em"><code>Montecarlo_PiGreco.ipynb</code> — stima di π "facendo piovere" punti in un quadrato, con grafico dei punti dentro/fuori dal cerchio. Il libro nomina il metodo a p. 126 rimandando all'Unità A3, ma non lo sviluppa nelle pagine di questa lezione.</p></div>
+  <div class="resource"><span class="tag">NOTEBOOK 6 · GIÀ SVOLTO · MATERIALE EXTRA</span><p style="margin-top:.4em"><code>xx_Montecarlo_Integrale.ipynb</code> — stessa idea applicata al calcolo di un integrale.</p></div>
+
+  <p style="margin-top:2em">Attività <strong>#ProvaOra</strong> dal libro:</p>
+  <div class="resource"><span class="tag">CODICE</span><p style="margin-top:.4em">Scrivi <code>root_finding2.py</code>: aggiungi un <code>assert</code> al metodo di bisezione per controllare che a ≤ b, che f(a) e f(b) abbiano segno opposto, e che il numero massimo di iterazioni sia ≥ 1.</p></div>
+  <div class="resource"><span class="tag">RICERCA + CODICE</span><p style="margin-top:.4em">Cerca come funziona il <strong>metodo delle secanti</strong> e scrivi <code>root_finding3.py</code>; poi confronta la tua implementazione di Newton (notebook 2) con quella del libro in <code>root_finding4.py</code>.</p></div>
+  <div class="resource"><span class="tag">SFIDA</span><p style="margin-top:.4em">Studia l'algoritmo di <strong>Gauss–Legendre</strong> per il calcolo di π e completa <code>estimate_pi2.py</code>: con questo metodo bastano solo 3 passaggi per ottenere 14 cifre corrette. Confronta la velocità di convergenza con Leibniz e Nilakantha.</p></div>
+
+  <div class="teacher-note"><strong>Collegamento successivo</strong>Le prossime pagine (132–133) del libro introducono SciPy e le funzioni <code>roots()</code> e <code>brentq()</code>: gli algoritmi "fatti in casa" che hai visto oggi sono già disponibili, ottimizzati, in libreria — incluso un equivalente di <code>scipy.integrate.quad</code> per il metodo dei rettangoli.</div>
 </section>
 
 <footer>Materiale didattico basato su "Hashtag 3", Modulo B, Unità B1 — Calcolo numerico e algebra lineare · Realizzato con l'assistenza di Claude (Anthropic)</footer>
@@ -1028,6 +1058,97 @@ footer{padding:3em 2em; text-align:center; color:var(--ink-soft); font-family:'I
   run();
 })();
 
+/* ---------- Quiz ---------- */
+(function(){
+  const questions = [
+    {
+      q:'Cosa causò il fallimento del volo di collaudo dell\'Ariane 5 nel 1996?',
+      options:[
+        'Un errore nella formula di traiettoria del razzo',
+        'Un numero troppo grande per lo spazio di memoria che doveva contenerlo, rappresentato come un valore sbagliato',
+        'Un guasto meccanico ai motori'
+      ],
+      correct:1,
+      explain:'Un valore superava lo spazio di memoria disponibile e venne rappresentato in modo completamente sbagliato — lo stesso principio dell\'overflow che hai visto nella simulazione qui sopra.'
+    },
+    {
+      q:'Quali sono le tre categorie di metodi/algoritmi numerici viste a lezione?',
+      options:[
+        'Lineari, quadratici, esponenziali',
+        'Diretti, iterativi, ricorsivi',
+        'Analogici, digitali, ibridi'
+      ],
+      correct:1,
+      explain:'Diretti (numero di passi prevedibile), iterativi (convergono progressivamente), ricorsivi (una funzione richiama se stessa).'
+    },
+    {
+      q:'Tra le serie di Leibniz e di Nilakantha per approssimare π, quale converge più velocemente?',
+      options:[
+        'Leibniz',
+        'Convergono alla stessa velocità',
+        'Nilakantha'
+      ],
+      correct:2,
+      explain:'Nilakantha raggiunge una buona precisione con molti meno termini: è per questo che si preferisce come esempio di convergenza rapida.'
+    },
+    {
+      q:'Nel metodo di bisezione, quale condizione su f(a) e f(b) garantisce che esista uno zero in [a, b]?',
+      options:[
+        'f(a) e f(b) devono avere segno opposto',
+        'f(a) e f(b) devono essere entrambi positivi',
+        'a e b devono essere numeri interi'
+      ],
+      correct:0,
+      explain:'Segno opposto agli estremi (teorema degli zeri per funzioni continue): è l\'ipotesi che il codice del libro verifica con un assert.'
+    },
+    {
+      q:'Nel metodo dei rettangoli per il calcolo di un integrale, cosa succede aumentando il numero n di sottointervalli?',
+      options:[
+        'La stima peggiora, perché si accumulano più errori di arrotondamento',
+        'La stima migliora, perché ogni rettangolo approssima meglio l\'area sotto la curva',
+        'Il risultato non cambia: n non influisce sulla precisione'
+      ],
+      correct:1,
+      explain:'Con h = (b−a)/n sempre più piccolo, i rettangoli seguono più fedelmente l\'andamento della funzione e l\'errore di approssimazione diminuisce.'
+    },
+    {
+      q:'Nel metodo babilonese per la radice quadrata, da quale valore iniziale si parte per stimare <span class="sqrt">√<span class="rad-inner">x</span></span>?',
+      options:[
+        'x₀ = x',
+        'x₀ = x/2',
+        'x₀ = 1'
+      ],
+      correct:1,
+      explain:'Si parte da x₀ = x/2 e si applica ripetutamente x_(i+1) = (1/2)·(x_i + x/x_i), avvicinandosi ad ogni passo al valore vero.'
+    },
+    {
+      q:'Nel metodo Monte Carlo per stimare π, cosa rappresenta il rapporto tra punti "dentro" al cerchio e punti totali generati?',
+      options:[
+        'Un\'approssimazione di π/4',
+        'Un\'approssimazione diretta di π',
+        'Un\'approssimazione dell\'area del quadrato'
+      ],
+      correct:0,
+      explain:'Il rapporto tra le due aree (cerchio e quadrato) vale π/4: per questo la stima di π si ottiene moltiplicando quel rapporto per 4.'
+    }
+  ];
+  const wrap = document.getElementById('quizWrap');
+  questions.forEach((item, qi)=>{
+    const box = document.createElement('div');
+    box.className = 'quiz-q';
+    let opts = item.options.map((o,oi)=>`<label><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join('');
+    box.innerHTML = `<p class="qtext">${qi+1}. ${item.q}</p>${opts}<button class="secondary" style="margin-top:.6em">Verifica</button><div class="quiz-feedback"></div>`;
+    const fb = box.querySelector('.quiz-feedback');
+    box.querySelector('button').addEventListener('click', ()=>{
+      const sel = box.querySelector(`input[name="q${qi}"]:checked`);
+      if(!sel){ fb.className='quiz-feedback ko'; fb.textContent='Seleziona una risposta prima di verificare.'; return; }
+      const ok = parseInt(sel.value,10) === item.correct;
+      fb.className = 'quiz-feedback ' + (ok ? 'ok' : 'ko');
+      fb.textContent = (ok ? '✓ Corretto — ' : '✗ Non corretto — ') + item.explain;
+    });
+    wrap.appendChild(box);
+  });
+})();
 </script>
 </body>
 </html>
